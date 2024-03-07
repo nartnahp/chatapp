@@ -8,9 +8,9 @@ export type Conversation = {
     lastUpdatedBy: string,
     chanelName: string | undefined,
     displayName: string | undefined,
-    members: Users | [],
-    admins: object,
-    messagesData: Messages,
+    members: Users | string[] | [],
+    admins: Users | string[] | [],
+    messages: Messages,
     avatar: string | (string | undefined)[] | undefined,
     activityTime: string | undefined,
     onlineStatus: string | undefined

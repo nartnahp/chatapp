@@ -40,12 +40,8 @@
                 session.update((u) => u = authRes);
                 $socket = io(apiUrl);
                 if ($socket) {
-                    $socket?.on('welcome', mess => console.log(mess));
-                    $socket?.on('connect_error', (err) => {
-                        console.error('Socket.IO connection error:', err); 
-                    });
                     $socket?.emit('addUser', $session?.user._id);
-                    $socket?.on('getUsers', users => onlineUsersStore.set(users), );
+                    $socket?.on('getUsers', users => onlineUsersStore.set(users));
                 };
             } else {
                 session.set(undefined);
@@ -57,25 +53,30 @@
         }
     }
 
-    $: $conversationsData.map((c) => c.onlineStatus = getOnlineStatus(c.members, $onlineUsersStore));
+    $: if ($onlineUsersStore) $conversationsData.map((c) => c.onlineStatus = getOnlineStatus(c.members, $onlineUsersStore));
+    $: console.log('onlineUsersStore', $onlineUsersStore)
     
-    function getOnlineStatus(members: Users, usersStore: OnlineUsers) {
+    function getOnlineStatus(members: string[], usersStore: OnlineUsers) {
         let status: string | undefined = '';
         if (members.length < 2) status = 'online';
         if (members.length == 2) {
-            const getUserIdToCheckStatus = members.find((u) => u._id != $session?.user._id)?._id;
+            const getUserIdToCheckStatus = members.find((u) => u != $session?.user._id);
             if (getUserIdToCheckStatus) status = usersStore.find((u) => u.userId == getUserIdToCheckStatus)?.status;
         }
         if (members.length > 2) {
-            const getUserIdToCheckStatus = members.filter((u) => u._id != $session?.user._id).map((u) => u._id);
-            const membersStatus = usersStore.map((u) => {
+            const getUserIdToCheckStatus = members.filter((u) => u != $session?.user._id);
+            const membersStatus = usersStore.filter((u) => {
                 if (getUserIdToCheckStatus.includes(u.userId)) return u.status;
             });
-            if (membersStatus.some((status) => status == 'online')) status = 'online';
+            if (membersStatus.filter((status) => status.status == 'online')) status = 'online';
             else return status = 'offline';
+        }
+        else {
+            console.log('status end', status)
         }
         return status;
     }
+// $: console.log('conversationsData', $conversationsData)
     function handleSelectMenu(path: string) {
         if ($page.url.pathname !== path) goto(path);;
         isOpenUserProfile.set(false);

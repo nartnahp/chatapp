@@ -39,17 +39,17 @@
                 const res = await postWithBody('api/auth/register', {email: cred.user.email});
                 if (res.ok) {
                     const user = await res.json();
-                    session.update((u) => u = user)
-                    goto('/')
+                    session.update((u) => u = user);
+                    goto('/', {invalidateAll: true});
                 } else {
-                    console.log('Error authenticating', res)
+                    console.log('Error authenticating', res);
                 }
             }
         } catch (err) {
-            console.log('err', err)
+            console.log('err', err);
             if (err.code === AuthErrorCodes.EMAIL_EXISTS) {
                 errors.email = 'You have already signed up. Please sign in instead.';
-                console.log(errors.email)
+                console.log(errors.email);
             } else {
                 console.error('Error registering', err);
                 if (typeof err == 'object') {
