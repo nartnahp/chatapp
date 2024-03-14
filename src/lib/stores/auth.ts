@@ -20,6 +20,8 @@ export type Auth = { user: User };
 
 export type OnlineUsers = OnlineUser[];
 
+export type Contacts = Users;
+
 export type OnlineUser = {
   userId: string,
   socketId: string,

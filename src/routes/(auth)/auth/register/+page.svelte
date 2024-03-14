@@ -64,24 +64,24 @@
     }
 </script>
 
-<div class="container bg-zinc-800 min-w-full h-screen flex justify-center">
+<div class="container min-w-full h-screen flex justify-center">
     <form on:submit={onSignUp} action="javascript:void(0);">
-        <div class="card w-fit h-fit mt-16 flex-col justify-center items-center p-8">
-            <h1 class="text-center">Đăng ký</h1>
+        <div class="card bg-primary w-fit h-fit mt-16 flex-col justify-center items-center p-8">
+            <h1 class="text-center text-2xl font-bold text-primary-content">Đăng ký</h1>
             <div class="my-4">
                 <label class="label">
-                    <span>Email</span>
-                    <input class="input" type="email" placeholder="Nhập email" bind:value={model.email}/>
+                    <span class="text-primary-content">Email</span>
+                    <input class="input input-primary" type="email" placeholder="Nhập email" bind:value={model.email}/>
                 </label>
                 <label class="label my-4">
-                    <span>Mật khẩu</span>
-                    <input class="input" type="password" placeholder="Nhập mật khẩu" bind:value={model.password}/>
+                    <span class="text-primary-content">Mật khẩu</span>
+                    <input class="input input-primary" type="password" placeholder="Nhập mật khẩu" bind:value={model.password}/>
                 </label>
             </div>
             <div class="flex justify-center mb-4">
-                <button type="button" class="btn variant-filled" on:click={onSignUp}>Đăng ký</button>
+                <button type="submit" class="btn variant-filled">Đăng ký</button>
             </div>
-            <h2 class="text-center">Đã có tài khoản? <a href="/auth/log-in" class="underline">Đăng nhập</a></h2>
+            <h2 class="text-center text-primary-content">Đã có tài khoản? <a href="/auth/log-in" class="underline">Đăng nhập</a></h2>
         </div>
     </form>
 </div>

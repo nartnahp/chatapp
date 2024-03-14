@@ -1,19 +1,4 @@
-<script lang="ts">
-    import { goto } from '$app/navigation';
-    import { session } from '$lib/stores/session';
-    import { onMount } from 'svelte';
-
-    onMount(() => {
-        if ($session) {
-            goto('/messages');
-        } else {
-            goto('/auth/log-in');
-        }
-    })
-</script>
-
-<style lang="postcss">
-  :global(html) {
-    background-color: #000;
-  }
-</style>
+<div class="flex space-x-4 mt-40 min-w-screen justify-center items-center">
+    <span class="loading  loading-dots loading-lg text-2xl"></span>
+    <span class=" text-2xl">Waiting for redirect!</span>
+</div>

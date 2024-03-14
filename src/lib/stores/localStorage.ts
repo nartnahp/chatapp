@@ -4,11 +4,11 @@ import { browser } from '$app/environment';
 export let checkThemeMode: string | undefined;
 
 if (browser) {
-    checkThemeMode = localStorage.themeMode
+    checkThemeMode = localStorage.currentTheme
 }
 
-export const themeMode = writable<string | undefined>(checkThemeMode);
+export const currentTheme = writable<string | undefined>(checkThemeMode);
 
 if (browser) {
-    themeMode.subscribe((value) => localStorage.themeMode = value)
+    currentTheme.subscribe((value) => localStorage.currentTheme = value)
 }
